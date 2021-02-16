@@ -1,0 +1,1 @@
+print('\n'.join('Monday Tuesday Wednesday Thursday Friday \n Saturday Sunday'.split(' ')))

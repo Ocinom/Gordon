@@ -1,0 +1,1 @@
+print('\n'.join('Hello Phil,O\'Neill!,Gordon Institute of TAFE,Boundary Rd.,East Geelong,Phone :,5225 0959'.split(',')))

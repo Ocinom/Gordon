@@ -12,6 +12,7 @@ class Graph():
         self.room = room
         self.type = type
         self.plot = plt
+        self.title = room[:2] + '.' + room[2:]
 
     # Method to plot a line graph on matplotlib
     def makeLine(self):
@@ -20,7 +21,7 @@ class Graph():
         ax.plot(graph['Temperature'], graph['Humidity'], label=self.room.upper())
         ax.set_xlabel('Temperature')
         ax.set_ylabel('Humidity')
-        ax.set_title(self.room)
+        ax.set_title(self.title)
         ax.legend()
 
     # Method to plot a bar graph on matplotlib
@@ -30,7 +31,7 @@ class Graph():
         ax.bar(graph['Temperature'], graph['Humidity'])
         ax.set_xlabel('Temperature')
         ax.set_ylabel('Humidity')
-        ax.set_title(self.room)
+        ax.set_title(self.title)
 
     # Display the plotted graph
     def show(self):

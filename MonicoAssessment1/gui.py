@@ -1,6 +1,6 @@
 # Use tkinter libraries for GUI, Graph object from matplot.py
 import tkinter as tk
-from matplot import Graph
+from matplot import Graph, rooms
 
 # Initalise master window with set dimensions, not resizable
 win = tk.Tk()
@@ -12,15 +12,15 @@ roomQuery = ''
 typeQuery = ''
 
 # Command functions to set global variables
-def setRoom(room):
+def setData(room):
     global roomQuery
     roomQuery = room
-    roomsResult.config(text='Room: %s' % room)
+    data = rooms[room]#.set_index('Room')
+    roomsResult.config(text=data)
 
 def setType(type):
     global typeQuery
     typeQuery = type
-    typesResult.config(text='Type of Graph: %s' % type)
 
 # Initialise Graph object with global variables
 def submit():
@@ -36,12 +36,11 @@ def exit():
 # Frame Object to contain the widgets on top (rooms, types, select)
 optionsFrame = tk.Frame()
 
-# Drop-down menu to select from rooms in roomslist
-roomslist = ['E2.08', 'E2.22', 'E2.23']
+# Drop-down menu to select from the keys() list in the rooms dictionary
 roomsvar = tk.StringVar(optionsFrame)
 roomsvar.set('Select Room')
-rooms = tk.OptionMenu(optionsFrame, roomsvar, *roomslist, command=setRoom)
-rooms.config(font=('Arial', 15))
+roomsMenu = tk.OptionMenu(optionsFrame, roomsvar, *sorted(rooms.keys()), command=setData)
+roomsMenu.config(font=('Arial', 15))
 
 # Drop-down menu to select from types in typeslist
 typeslist = ['Line', 'Bar']
@@ -55,18 +54,18 @@ select = tk.Button(optionsFrame, text='Plot Graph', command=submit, font=('Arial
 close = tk.Button(win, text='Exit', command=exit, font=('Arial', 12))
 
 # Initialise LabelFrame object to display results from the drop-down lists
-resultFrame = tk.LabelFrame(win, text='Find data for:', font=('Arial', 25))
-roomsResult = tk.Label(resultFrame, text='Room: ', font=('Arial', 15))
-typesResult = tk.Label(resultFrame, text='Type: ', font=('Arial', 15))
+resultFrame = tk.LabelFrame(win, text='Room data:', font=('Arial', 25))
+roomsResult = tk.Label(resultFrame, text='', font=('Arial', 20))
+# typesResult = tk.Label(resultFrame, text='Type: ', font=('Arial', 15))
 
 # Use the pack() function to style and organise the widgets in the program
-rooms.pack(side='left', fill='both', expand=True, padx=10)
+roomsMenu.pack(side='left', fill='both', expand=True, padx=10)
 types.pack(side='left', fill='both', expand=True, padx=10)
 select.pack(side='right', fill='both', expand=True, padx=10)
 optionsFrame.pack(expand=True, fill='x')
 
 roomsResult.pack()
-typesResult.pack()
+# typesResult.pack()
 resultFrame.pack(fill='x', expand=True)
 
 close.pack(side='bottom', expand=True)
